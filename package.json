@@ -1,0 +1,17 @@
+{
+	"name": "mi1kb0t",
+	"version": "1.0.0",
+	"description": "A multi-platform chat bot",
+	"author": "Dan Hlavenka <dan@hlavenka.me>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DanH42/mi1kb0t.git"
+	},
+	"dependencies": {
+		"facebook-chat-api": "0.2.x",
+		"irc": "0.3.x",
+		"googleapis": "2.1.x",
+		"request": "2.64.x"
+	}
+}
