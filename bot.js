@@ -12,6 +12,7 @@ var listeners = {
 
 var readyCallbacks = [];
 
+// Load all plugins in plugins/ directory and save their callbacks
 fs.readdirSync(__dirname + '/plugins/').forEach(function(file){
 	if(file.match(/\.js$/) !== null){
 		var plugin = require('./plugins/' + file);
@@ -27,6 +28,7 @@ fs.readdirSync(__dirname + '/plugins/').forEach(function(file){
 	}
 });
 
+// Start connecting to networks
 for(var connectionName in networks){
 	var networkCreds = networks[connectionName];
 	var network = require('./networks/' + networkCreds.type + '.js');
@@ -36,6 +38,10 @@ for(var connectionName in networks){
 		for(var i = 0; i < readyCallbacks.length; i++)
 			readyCallbacks[i](api);
 	}, function(reply, message, api){
+		// Detect if you're being spoken to; adjust if you rename your bot
+		// isAddressed = 2 means the current message is addressing the bot
+		// isAddressed = 1 means the bot was mentioned in the past 30 seconds
+		// isAddressed = 0 means the bot has not been mentioned recently
 		if(message.body && message.body.match(/b[0o]t/i) && message.body.match(/mi[l1]k/i)){
 			if(isAddressed[message.thread_id])
 				clearTimeout(isAddressed[message.thread_id]);
@@ -48,9 +54,11 @@ for(var connectionName in networks){
 		else
 			message.isAddressed = 0;
 
+		// Call all the `all` listeners first
 		for(var i = 0; i < listeners.all.length; i++)
 			listeners.all[i].callback(reply, message, api);
 
+		// Some messages may not actually have text in their body
 		if(message.body){
 			var msg = message.body.toLowerCase();
 			for(var i = 0; i < listeners.equals.length; i++)

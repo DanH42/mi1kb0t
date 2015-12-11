@@ -19,6 +19,7 @@ module.exports = {listeners: [
 			reply({attachment: request("https://http.cat/" + code + ".jpg")});
 		}
 
+		// Exclude URLs
 		if(message.body.indexOf('/') !== -1) return;
 
 		var opts = {
@@ -29,20 +30,24 @@ module.exports = {listeners: [
 			num: 1,
 			searchType: "image"
 		};
+		// Try to coax results to include animations
+		// "imageType: animated" is not supported by the API :(
 		if(match[2].match(/gifv?|webm/))
 			opts.fileType = "gif";
 
 		search.cse.list(opts, function(err, res){
 			if(err) return error(500);
 			if(!res.items || res.items.length === 0) return error(404);
-				var url = res.items[0].link;
+			var url = res.items[0].link;
 
+			// Giphy is dumb. Fix their dumbness.
 			var giphy = url.match(/\.giphy\.com\/media\/(.*)\//)
 			if(giphy && giphy[1])
 				url = "https://media.giphy.com/media/" + giphy[1] + "/giphy.gif";
 			console.log(url);
 
 			if(api.type === "messenger"){
+				// Send a typing indication while down/uploading the image
 				api.sendTypingIndicator(message.thread_id);
 				reply({attachment: request(url)}, function(err){
 					if(err) return error(500);

@@ -6,6 +6,7 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 	readyCallback(client);
 
 	client.addListener('message', function(from, to, msg){
+		// Fix PM weirdness
 		var respondTo = to;
 		if(to == credentials.nick)
 			respondTo = from;

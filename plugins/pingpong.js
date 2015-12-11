@@ -41,7 +41,9 @@ module.exports = {listeners: [
 	type: "regex",
 	query: /(?:(?:^| )is|'s|'re) (.*?)(?: and| or| but|[,.?!]|$)/i,
 	callback: function(reply, message, api, match){
+		// Always respond if recently mentioned, otherwise 10% chance
 		if((message.isAddressed || Math.random() < .10)){
+			// If they're shouting, shout back
 			if(match[1].toUpperCase() === match[1] && match[1].toLowerCase() !== match[1])
 				reply("YOU'RE " + match[1] + "!!!");
 			else
