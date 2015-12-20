@@ -15,7 +15,8 @@ module.exports = {listeners: [
 	type: "regex",
 	query: /(.+)\.(jpe?g|png|bmp|gifv?|webm)$/i,
 	callback: function(reply, message, api, match){
-		var error = function(code){
+		var error = function(code, msg){
+			console.log(msg);
 			reply({attachment: request("https://http.cat/" + code + ".jpg")});
 		}
 
@@ -36,7 +37,12 @@ module.exports = {listeners: [
 			opts.fileType = "gif";
 
 		search.cse.list(opts, function(err, res){
-			if(err) return error(500);
+			if(err)
+				if(err.errors && err.errors[0] && err.errors[0].reason == "dailyLimitExceeded")
+					return error(509, err);
+				else
+					return error(500, err);
+
 			if(!res.items || res.items.length === 0) return error(404);
 			var url = res.items[0].link;
 
@@ -50,7 +56,7 @@ module.exports = {listeners: [
 				// Send a typing indication while down/uploading the image
 				api.sendTypingIndicator(message.thread_id);
 				reply({attachment: request(url)}, function(err){
-					if(err) return error(500);
+					if(err) return error(500, err);
 				});
 			}else
 				reply(url);
