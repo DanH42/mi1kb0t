@@ -5,7 +5,7 @@ module.exports = {listeners: [
     type: "equals",
     query: ".dice",
     callback: function(reply){
-        reply(Math.floor(Math.random() * 6) + 1);
+        reply(Math.floor(Math.random() * 6) + 1 + "");
     }
 }, {
     type: "equals",
