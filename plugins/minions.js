@@ -10,8 +10,13 @@ module.exports = {listeners: [
             try{
                 var posts = JSON.parse(body).data.children;
                 var index = Math.floor(Math.random() * posts.length);
+                var attempts = 0;
                 while(!posts[index].data.url){
                      index = Math.floor(Math.random() * posts.length);
+                     attempts++;
+                     if(attempts > 5){
+                         break;
+                     }
                 }
                 var minion = posts[index].data.url;
                 var image = request(minion);
