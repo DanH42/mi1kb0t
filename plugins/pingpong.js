@@ -21,7 +21,7 @@ module.exports = {listeners: [
 	}
 }, {
 	type: "regex",
-	query: /^o+h*$/i,
+	query: /^o+[oh]h*$/i,
 	callback: function(reply){
 		reply("REKT");
 	}
