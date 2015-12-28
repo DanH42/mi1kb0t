@@ -5,7 +5,7 @@ module.exports = {listeners: [
     type: "startsWith",
     query: ".dice",
     callback: function(reply){
-        var words = message.body.match(/\S+/gi);
+        var words = message.body.match(/[0-9]*/);
         for (var i = 0; i < words.length; i++) {
             if (!isNaN(words[i])) {
                 reply(Math.floor(Math.random() * words[i]) + 1 + "");
