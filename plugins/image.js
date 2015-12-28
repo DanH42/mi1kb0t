@@ -18,7 +18,7 @@ module.exports = {listeners: [
 		var error = function(code, msg){
 			console.log(msg);
 			reply({attachment: request("https://http.cat/" + code + ".jpg")});
-		}
+		};
 
 		// Exclude URLs
 		if(message.body.indexOf('/') !== -1) return;
@@ -47,7 +47,7 @@ module.exports = {listeners: [
 			var url = res.items[0].link;
 
 			// Giphy is dumb. Fix their dumbness.
-			var giphy = url.match(/\.giphy\.com\/media\/(.*)\//)
+			var giphy = url.match(/\.giphy\.com\/media\/(.*)\//);
 			if(giphy && giphy[1])
 				url = "https://media.giphy.com/media/" + giphy[1] + "/giphy.gif";
 			console.log(url);
