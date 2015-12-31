@@ -21,9 +21,10 @@ module.exports = {listeners: [
 	}
 }, {
 	type: "regex",
-	query: /^o+[oh]h*$/i,
-	callback: function(reply){
-		reply("REKT");
+	query: /^o+h*$/i,
+	callback: function(reply, message){
+		if(message.body.toLowerCase() !== "oh")
+			reply("REKT");
 	}
 }, {
 	type: "equals",
