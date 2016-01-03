@@ -1,5 +1,6 @@
 // Various assorted call/response combinations
 
+var request = require('request');
 module.exports = {listeners: [
 {
 	type: "equals",
@@ -18,6 +19,17 @@ module.exports = {listeners: [
 	query: /deez.?nut[sz]/i,
 	callback: function(reply){
 		reply("GOT EEM");
+	}
+}, {
+	type: "regex",
+	query: /\.((dick)|(threatbutt))(butt)?|\.(butt)/i,
+	callback: function(reply, message){
+		if(message.body.toLowerCase().indexOf('threat') != -1){
+			reply({attachment: request("https://pbs.twimg.com/profile_images/590578632906637312/hGTAcKmm.png")});
+		}
+		else{
+			reply({attachment: request("http://i.imgur.com/j0ymrVQ.png")});
+		}
 	}
 }, {
 	type: "regex",
