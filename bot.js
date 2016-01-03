@@ -42,7 +42,7 @@ for(var connectionName in networks){
 		// isAddressed = 2 means the current message is addressing the bot
 		// isAddressed = 1 means the bot was mentioned in the past 30 seconds
 		// isAddressed = 0 means the bot has not been mentioned recently
-		if(message.body && message.body.match(/b[0o]t/i) && message.body.match(/mi[l1]k/i)){
+		if(message.isAddressed === 2 || (message.body && message.body.match(/b[0o]t/i) && message.body.match(/mi[l1]k/i))){
 			if(isAddressed[message.thread_id])
 				clearTimeout(isAddressed[message.thread_id]);
 			isAddressed[message.thread_id] = setTimeout(function(id){
