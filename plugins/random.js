@@ -37,14 +37,21 @@ function roll(reply, message){
 	}
 
 	var rolled = 0;
+	var total = 0;
 	var nextRoll = function(){
-		reply(Math.floor(Math.random() * sides) + 1 + "");
+		var num = Math.floor(Math.random() * sides) + 1;
+		total += num;
+		reply(num + "");
 
 		if(++rolled < rolls)
 			setTimeout(nextRoll, 100);
 		else if(overflow)
 			setTimeout(function(){
 				reply("Ran out of dice!");
+			}, 100);
+		else if(rolls > 1)
+			setTimeout(function(){
+				reply("Total: " + total);
 			}, 100);
 	}
 	nextRoll();
