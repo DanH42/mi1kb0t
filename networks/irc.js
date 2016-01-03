@@ -21,6 +21,9 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 
 		console.log(message);
 
+		if(to == credentials.nick)
+			message.isAddressed = 2;
+
 		var reply = function(text, callback){
 			client.say(respondTo, text);
 			if(typeof callback === "function")
