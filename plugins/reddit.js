@@ -5,7 +5,7 @@ module.exports = {listeners: [
 	type: "equals",
 	query: ".minion",
 	callback: function(reply, message, api){
-		reddit(["MinionHate", "WackyTicTacs", "ReallyWackyTicTacs"], "http://i.imgur.com/L07nbhn.jpg", reply, message, api);
+		reddit(["MinionHate", "WackyTicTacs"], "http://i.imgur.com/L07nbhn.jpg", reply, message, api);
 	}
 }, {
 	type: "equals",
