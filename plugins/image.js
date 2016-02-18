@@ -52,7 +52,7 @@ module.exports = {listeners: [
 				url = "https://media.giphy.com/media/" + giphy[1] + "/giphy.gif";
 			console.log(url);
 
-			var fileTypes = [".jpg", ".jpeg", ".gif"];
+			var fileTypes = [".jpg", ".jpeg", ".gif", ".png"];
 			for (var i = 0; i < fileTypes.length; i++) {
 				if (url.indexOf(fileTypes[i]) !== -1) {
 					if (url.indexOf(fileTypes[i], url.length - fileTypes[i].length) == -1) {
