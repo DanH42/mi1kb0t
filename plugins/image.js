@@ -52,6 +52,16 @@ module.exports = {listeners: [
 				url = "https://media.giphy.com/media/" + giphy[1] + "/giphy.gif";
 			console.log(url);
 
+			var fileTypes = [".jpg", ".jpeg", ".gif"];
+			for (var i = 0; i < fileTypes.length; i++) {
+				if (url.indexOf(fileTypes[i]) !== -1) {
+					if (indexOf(fileTypes[i], url.length - fileTypes[i].length) == -1) {
+						url = url.replace(url.substring((url.indexOf(fileTypes[i])+fileTypes[i].length), (url.length-1)), "");
+					}
+				}
+			}
+
+
 			if(api.type === "messenger"){
 				// Send a typing indication while down/uploading the image
 				api.sendTypingIndicator(message.thread_id);
