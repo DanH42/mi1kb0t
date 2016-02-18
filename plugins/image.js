@@ -55,7 +55,7 @@ module.exports = {listeners: [
 			var fileTypes = [".jpg", ".jpeg", ".gif"];
 			for (var i = 0; i < fileTypes.length; i++) {
 				if (url.indexOf(fileTypes[i]) !== -1) {
-					if (indexOf(fileTypes[i], url.length - fileTypes[i].length) == -1) {
+					if (url.indexOf(fileTypes[i], url.length - fileTypes[i].length) == -1) {
 						url = url.replace(url.substring((url.indexOf(fileTypes[i])+fileTypes[i].length), (url.length-1)), "");
 					}
 				}
