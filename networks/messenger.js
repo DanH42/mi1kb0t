@@ -25,5 +25,12 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 
 			messageCallback(reply, message, api);
 		});
+
+		var CronJob = require('cron').CronJob; //This block should log the bot out then back in ever night at midnight.
+		new CronJob('00 00 * * *', function() {//I AM NOT GOOD WITH COMPUTER PLS TO HELP
+			api.logout(callback(err));
+			login();
+		}, null, true, 'America/Los_Angeles'); //This is to keep the bot from dying every couple of days.
+
 	});
 }};
