@@ -13,7 +13,7 @@ var options = {
 module.exports = {listeners: [
 {
 	type: "regex",
-	query: /(.+)\.(jpe?g|png|bmp|gifv?|webm)$/i,
+	query: /(.+)\.(jpe?g|png|bmp|gifv?|webm|tiff?)$/i,
 	callback: function(reply, message, api, match){
 		var error = function(code, msg){
 			console.log(msg);
