@@ -1,8 +1,8 @@
 module.exports = {
 	"facebook": {
 		type: "messenger",
-		email: "mi1kb0t@example.com",
-		password: "hunter2"
+		email: process.env.messenger_username || "example@example.com",
+		password: process.env.messenger_password || "example"
 	}, "my_bouncer": {
 		type: "irc",
 		server: "bouncer.example.com",
