@@ -9,7 +9,7 @@
 		"url": "https://github.com/DanH42/mi1kb0t.git"
 	},
 	"dependencies": {
-		"facebook-chat-api": "0.2.x",
+		"facebook-chat-api": "1.1.x",
 		"irc": "0.3.x",
 		"googleapis": "2.1.x",
 		"request": "2.64.x"
