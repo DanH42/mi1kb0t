@@ -33,12 +33,13 @@ function reddit(subs, fail, reply, message, api){
 			var attempts = 0;
 			while(!posts[index].data.url || posts[index].data.url.indexOf("i.imgur.com") === -1){
 				index = Math.floor(Math.random() * posts.length);
-				if(++attempts > 5)
+				if(++attempts > 10)
 					return reply({attachment: request(fail)});
 			}
 			var post = posts[index].data.url;
 			console.log(post);
 			var image = request(post);
+
 			if(image)
 				reply({attachment: image});
 			else
