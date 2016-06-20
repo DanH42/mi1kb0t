@@ -63,5 +63,12 @@ module.exports = {listeners: [
 				reply("YOU'RE " + match[1] + ".");
 		}
 	}
-}
+},	{
+		//Simple shit. Making Milk more of a nice guy
+		type: "contains",
+		query: "thank"
+		callback: function(reply){
+			reply("You're welcome m'lady");
+		}
+	}
 ]};
