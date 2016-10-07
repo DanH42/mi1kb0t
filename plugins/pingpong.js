@@ -74,7 +74,7 @@ module.exports = {listeners: [
 	type: "contains",
 	query: "You know what grandma always says",
 	callback: function(reply){
-		reply("Fuck 'em!'");
+		reply("Fuck 'em!");
 	}
 }
 ]};
