@@ -70,5 +70,11 @@ module.exports = {listeners: [
 	callback: function(reply){
 		reply("You're welcome m'lady");
 	}
+}, {
+	type: "contains",
+	query: "You know what grandma always says",
+	callback: function(reply){
+		reply("Fuck 'em!");
+	}
 }
 ]};
