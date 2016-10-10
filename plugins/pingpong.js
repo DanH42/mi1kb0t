@@ -55,24 +55,23 @@ module.exports = {listeners: [
 	query: /(?:(?:^| )is|'s|'re) (.*?)(?: and| or| but|[,.?!]|$)/i,
 	callback: function(reply, message, api, match){
 		// Always respond if recently mentioned, otherwise 10% chance
-		if((message.isAddressed || Math.random() < 0.10)){
+		if((message.isAddressed || Math.random() < 0.05)){
 			// If they're shouting, shout back
 			if(match[1].toUpperCase() === match[1] && match[1].toLowerCase() !== match[1])
-				reply("YOU'RE " + match[1] + "!!!");
+				reply("YOUR MOM'S " + match[1] + "!!!");
 			else
 				reply("YOU'RE " + match[1] + ".");
 		}
 	}
 }, {
-	//Simple shit. Making Milk more of a nice guy
 	type: "contains",
 	query: "thank",
 	callback: function(reply){
 		reply("You're welcome m'lady");
 	}
 }, {
-	type: "contains",
-	query: "You know what grandma always says",
+	type: "regex",
+	query: /know what .*grandm(a|other) .*says/i,
 	callback: function(reply){
 		reply("Fuck 'em!");
 	}
