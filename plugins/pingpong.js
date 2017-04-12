@@ -66,8 +66,9 @@ module.exports = {listeners: [
 }, {
 	type: "contains",
 	query: "thank",
-	callback: function(reply){
-		reply("You're welcome m'lady");
+	callback: function(reply, message){
+		if((message.isAddressed || Math.random() < 0.10))
+			reply("You're welcome m'lady");
 	}
 }, {
 	type: "regex",
