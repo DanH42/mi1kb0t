@@ -12,7 +12,11 @@ module.exports = {listeners: [
 	type: "contains",
 	query: "ayy",
 	callback: function(reply){
-		reply("lmao " + String.fromCharCode(55357, 56445));
+		var date = new Date();
+		if((date.getHours() == 4 || date.getHours() == 16) && date.getMinutes() == 20)
+			reply("ｌｍａｏ " + String.fromCharCode(55357, 56445));
+		else
+			reply("lmao " + String.fromCharCode(55357, 56445));
 	}
 }, {
 	type: "regex",
