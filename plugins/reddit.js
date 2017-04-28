@@ -26,6 +26,7 @@ function reddit(subs, fail, reply, message, api){
 	if(api.type === "messenger")
 		api.sendTypingIndicator(message.thread_id);
 	var url = "https://www.reddit.com/r/" + subs[Math.floor(Math.random() * subs.length)] + "/top/.json?sort=top&t=week";
+
 	request(url, function(err, res, body){
 		try{
 			var posts = JSON.parse(body).data.children;
@@ -38,12 +39,16 @@ function reddit(subs, fail, reply, message, api){
 			}
 			var post = posts[index].data.url;
 			console.log(post);
-			var image = request(post);
 
-			if(image)
-				reply({attachment: image});
-			else
-				reply({attachment: request(fail)});
+			if(api.type === "messenger"){
+				var image = request(post);
+
+				if(image)
+					reply({attachment: image});
+				else
+					reply({attachment: request(fail)});
+			}else
+				reply(post);
 		}catch(e){
 			reply({attachment: request(fail)});
 		}
