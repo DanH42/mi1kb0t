@@ -23,11 +23,15 @@ function roll(reply, message){
 	var rolls = 1;
 	var overflow = false;
 
+	var multiSyntax = false;
+
 	var match = message.body.match(/(?:([0-9]*)d)?([0-9]+)/i);
 	console.log(match);
 	if(match && match.length === 3){
-		if(match[1])
+		if(match[1]){
 			rolls = parseInt(match[1])
+			multiSyntax = true;
+		}
 		sides = parseInt(match[2]);
 
 		if(rolls > 10){
@@ -41,7 +45,16 @@ function roll(reply, message){
 	var nextRoll = function(){
 		var num = Math.floor(Math.random() * sides) + 1;
 		total += num;
-		reply(num + "");
+
+		var comment = "";
+		if(multiSyntax){
+			if(num === sides)
+				comment = "!";
+			else if(num === 1)
+				comment = " :(";
+		}
+
+		reply(num + comment);
 
 		if(++rolled < rolls)
 			setTimeout(nextRoll, 100);
