@@ -14,7 +14,7 @@ module.exports = {listeners: [
 	callback: function(reply){
 		var alien = String.fromCharCode(55357, 56445);
 		var date = new Date();
-		if((date.getHours() == 4 || date.getHours() == 16) && date.getMinutes() == 20)
+		if(date.getHours() % 12 == 4 && date.getMinutes() == 20)
 			reply(alien + " " + alien + " " + alien + " ｌｍａｏ " + alien + " " + alien + " " + alien);
 		else
 			reply("lmao " + alien);
