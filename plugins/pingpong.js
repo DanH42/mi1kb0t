@@ -57,15 +57,16 @@ module.exports = {listeners: [
 	}
 }, {
 	type: "regex",
-	query: /(?:(?:^| )is|'s|'re) (.*?)(?: and| or| but|[,.?!]|$)/i,
+	query: /(?:(?:^| )is|'s|'re) (.*?)(?: and| or| but|http|[,.?!:()]|$)/i,
 	callback: function(reply, message, api, match){
 		// Always respond if recently mentioned, otherwise 10% chance
 		if((message.isAddressed || Math.random() < 0.05)){
+			var comeback = match[1].trim();
 			// If they're shouting, shout back
-			if(match[1].toUpperCase() === match[1] && match[1].toLowerCase() !== match[1])
-				reply("YOUR MOM'S " + match[1] + "!!!");
+			if(comeback.toUpperCase() === comeback && comeback.toLowerCase() !== comeback)
+				reply("YOUR MOM'S " + comeback + "!!!");
 			else
-				reply("YOU'RE " + match[1] + ".");
+				reply("YOU'RE " + comeback + ".");
 		}
 	}
 }, {
