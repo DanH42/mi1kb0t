@@ -38,7 +38,11 @@ function reddit(subs, fail, reply, message, api){
 			var posts = JSON.parse(body).data.children;
 			var index = Math.floor(Math.random() * posts.length);
 			var attempts = 0;
-			while(!posts[index].data.url || (posts[index].data.url.indexOf("i.imgur.com") === -1 && posts[index].data.url.indexOf("i.redditmedia.com") === -1)){
+			while(!posts[index].data.url || (
+				posts[index].data.url.indexOf("i.imgur.com") === -1 &&
+				posts[index].data.url.indexOf("i.redd.it") === -1 &&
+				posts[index].data.url.indexOf("i.redditmedia.com") === -1
+			)){
 				index = Math.floor(Math.random() * posts.length);
 				if(++attempts > 50)
 					return reply({attachment: request(fail)});
