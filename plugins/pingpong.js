@@ -15,7 +15,7 @@ module.exports = {listeners: [
 		var alien = String.fromCharCode(55357, 56445);
 		var flame = String.fromCharCode(55357, 56613);
 		var date = new Date();
-		if(date.getMonth() === 3 && date.getDate === 20){
+		if(date.getMonth() === 3 && date.getDate() === 20){
 			if(date.getHours() % 12 === 4 && date.getMinutes() === 20)
 				reply(`${flame} ${alien} ${flame} ｌｍａｏ ${flame} ${alien} ${flame}`);
 			else
