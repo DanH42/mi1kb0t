@@ -84,8 +84,10 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 					delay = Math.min(Math.max(delay, 0), 2000);
 				}
 
-				if(delay > 0)
+				if(delay > 0){
 					api.sendTypingIndicator(message.thread_id);
+					console.log("Delaying response by " + delay + "ms");
+				}
 
 				setTimeout(api.sendMessage.bind(api, text, message.thread_id, callback), delay);
 			};
