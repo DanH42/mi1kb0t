@@ -14,6 +14,29 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 			native_sendTypingIndicator(thread_id, callback);
 		};
 
+		var native_sendMessage = api.sendMessage;
+		api.sendMessage = function(message, threadID, callback){
+			try{
+				native_sendMessage(message, threadID, function(err, messageInfo){
+					if(err && err.errorDescription === "Please try closing and re-opening your browser window."){
+						console.log("Re-logging...");
+						api.logout(function(err){
+							console.log("Logged out", err);
+							module.exports.connect(credentials, function(api){
+								console.log("Done re-logging.");
+								api.sendMessage(text, message.thread_id, callback);
+							}, messageCallback);
+						});
+					}
+					if(typeof callback === 'function')
+						callback.apply(api, arguments);
+				});
+			}catch(e){
+				if(typeof callback === 'function')
+					callback(e);
+			}
+		};
+
 		api.type = "messenger";
 		api.userid = api.getCurrentUserID();
 		readyCallback(api);
@@ -46,12 +69,9 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 					}
 				}
 
-				try{
-					api.sendMessage(text, message.thread_id, callback);
-				}catch(e){
-					if(typeof callback === 'function')
-						callback(e);
 				}
+
+				api.sendMessage(text, message.thread_id, callback);
 			};
 
 			messageCallback(reply, message, api);
