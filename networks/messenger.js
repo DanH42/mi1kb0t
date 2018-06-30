@@ -53,7 +53,13 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 			if(message.mentions[api.userid])
 				message.isAddressed = 2; // This is a direct mention
 
-			var reply = function(text, callback){
+			var reply = function(text, options, callback){
+				if(typeof options === "function"){
+					callback = options;
+					options = {};
+				}else if(typeof options !== "object")
+					options = {};
+
 				if(typeof text === "string")
 					console.log("Responding to", message.thread_id, text);
 				else{
@@ -69,9 +75,19 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 					}
 				}
 
+				var delay = options.delay || 0;
+				if(options.delay === undefined && typeof text === "string"){
+					delay = text.length * 100;
+					// Subtract time since the original message was sent
+					delay -= Date.now() - message.timestamp;
+					// Ensure delay is non-negative and no more than 2 seconds
+					delay = Math.min(Math.max(delay, 0), 2000);
 				}
 
-				api.sendMessage(text, message.thread_id, callback);
+				if(delay > 0)
+					api.sendTypingIndicator(message.thread_id);
+
+				setTimeout(api.sendMessage.bind(api, text, message.thread_id, callback), delay);
 			};
 
 			messageCallback(reply, message, api);
