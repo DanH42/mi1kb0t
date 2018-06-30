@@ -27,7 +27,7 @@ function hedgehogs(reply, message, api){
 			return reply({attachment: request("https://i.imgur.com/TBwbKw1.png")});
 		var index = Math.floor(Math.random() * images.length);
 		var url = images[index];
-		url = url.substring(31, url.length - 1).replace('&amp;', '&');
+		url = url.substring(31, url.length - 1).replace(/&amp;/g, '&');
 		console.log(url);
 		var image = request(url + '&.jpg');
 		console.log(typeof image);
