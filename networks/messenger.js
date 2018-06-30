@@ -15,6 +15,7 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 		};
 
 		api.type = "messenger";
+		api.userid = api.getCurrentUserID();
 		readyCallback(api);
 
 		api.listen(function(err, message){
@@ -25,6 +26,9 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 
 			if(message.isGroup === false)
 				message.isAddressed = 2; // This is a PM
+
+			if(message.mentions[api.userid])
+				message.isAddressed = 2; // This is a direct mention
 
 			var reply = function(text, callback){
 				if(typeof text === "string")
