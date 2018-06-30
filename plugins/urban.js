@@ -37,9 +37,9 @@ function urban(term, reply, message, api){
 				}
 				reply(obj.list[index].definition);
 			}else
-				reply("No results found for \"" + term + "\"");
+				reply("No results found for \"" + term + "\"", {delay: 0});
 		}catch(e){
-			reply("No results found for \"" + term + "\"");
+			reply("No results found for \"" + term + "\"", {delay: 0});
 		}
 	});
 }

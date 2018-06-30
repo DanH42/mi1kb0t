@@ -54,7 +54,7 @@ function roll(reply, message){
 				comment = " :(";
 		}
 
-		reply(num + comment);
+		reply(num + comment, {delay: 0});
 
 		if(++rolled < rolls)
 			setTimeout(nextRoll, 100);

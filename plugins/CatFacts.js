@@ -12,7 +12,7 @@ module.exports = {listeners: [
                     return reply(obj.fact);
             }catch(e){}
 
-			reply("Sorry, no cat facts for you today :'(");
+			reply("Sorry, no cat facts for you today :'(", {delay: 0});
         });
     }
 }
