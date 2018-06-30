@@ -24,7 +24,13 @@ module.exports = {connect: function(credentials, readyCallback, messageCallback)
 		if(to == credentials.nick)
 			message.isAddressed = 2;
 
-		var reply = function(text, callback){
+		var reply = function(text, options, callback){
+			if(typeof options === "function"){
+				callback = options;
+				options = {};
+			}else if(typeof options !== "object")
+				options = {};
+
 			client.say(respondTo, text);
 			if(typeof callback === "function")
 				callback(null); // We can't detect errors here, assume success
