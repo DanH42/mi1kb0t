@@ -76,5 +76,12 @@ module.exports = {listeners: [
 	callback: function(reply){
 		reply("Fuck 'em!");
 	}
+}, {
+	type: "equals",
+	query: "rip",
+	callback: function(reply){
+		var respects = ["F", "𝖥", "𝐹", "𝘍", "𝙵", "𝑭", "𝙁", "Ｆ", "𝐅", "𝗙", "𝓕", "🅵", "🄵", "🅕", "Ⓕ", "ᶠ"];
+		reply(respects[Math.floor(Math.random() * respects.length)]);
+	}
 }
 ]};
