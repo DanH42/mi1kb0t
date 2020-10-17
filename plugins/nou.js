@@ -4,7 +4,7 @@ var responseTimes = {};
 module.exports = {listeners: [
 {
 	type: "regex",
-	query: /(?: is|(?:'|’)s|(?:'|’)re) (.*?)(?: and| or| but|http|[,.?!:()]|$)/i,
+	query: /(?: is|['’]s|['’]re) (.*?)(?: and| or| but|http|[,.?!:()]|$)/i,
 	callback: function(reply, message, api, match){
 		// Always respond if recently mentioned, otherwise 5% chance
 		if((message.isAddressed || Math.random() < 0.05)){

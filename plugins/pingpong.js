@@ -16,7 +16,9 @@ module.exports = {listeners: [
 		var flame = String.fromCharCode(55357, 56613);
 		var date = new Date();
 		if(date.getMonth() === 3 && date.getDate() === 20){
-			if(date.getHours() % 12 === 4 && date.getMinutes() === 20)
+			//if(date.getHours() % 12 === 4 && date.getMinutes() === 20)
+			// It's 4:20 somewhere
+			if(date.getMinutes() === 20)
 				reply(`${flame} ${alien} ${flame} ｌｍａｏ ${flame} ${alien} ${flame}`);
 			else
 				reply(`lmao ${flame}`);
@@ -48,7 +50,7 @@ module.exports = {listeners: [
 	type: "regex",
 	query: /^o+h*$/i,
 	callback: function(reply, message){
-		if(message.body.toLowerCase() !== "oh")
+		if(message.body.length > 2)
 			reply("REKT");
 	}
 }, {
@@ -62,13 +64,6 @@ module.exports = {listeners: [
 			"I am a worthless machine..."
 		];
 		reply(insults[Math.floor(Math.random() * insults.length)]);
-	}
-}, {
-	type: "contains",
-	query: "thank",
-	callback: function(reply, message){
-		if((message.isAddressed || Math.random() < 0.10))
-			reply("You're welcome m'lady");
 	}
 }, {
 	type: "regex",

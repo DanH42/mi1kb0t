@@ -5,7 +5,7 @@ module.exports = {listeners: [
     type: "equals",
     query: ".cat",
     callback: function(reply, message){
-        request("http://catfact.ninja/fact", function(err, res, body){
+        request("https://catfact.ninja/fact", function(err, res, body){
             try{
                 var obj = JSON.parse(body);
                 if(obj && obj.fact)

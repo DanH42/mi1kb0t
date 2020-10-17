@@ -3,10 +3,7 @@ module.exports = {listeners: [
 	type: "regex",
 	query: /^(?:(?:get-asciiart(?: -*)?)|(?:\.ascii(?: )?))(.*)$/i,
 	callback: function(reply, message, api, match){
-		console.log(match);
-		if(!match[1])
-			match[1] = "";
-		var art = match[1].toLowerCase();
+		var art = (match[1] || "").toLowerCase();
 		asciiart(art, reply);
 	}
 }, {
@@ -28,25 +25,21 @@ module.exports = {listeners: [
 }
 ]};
 
+const ascii = {
+	tableflip: "(╯°□°)╯︵ ┻━┻",
+	shrug: "¯\\_(ツ)_/¯",
+	lenny: "( ͡° ͜ʖ ͡°)",
+	thinking: "⠀⠀⠀⠀⠀⢀⣀⣀⣀\n⠀⠀⠀⠰⡿⠿⠛⠛⠻⠿⣷\n⠀⠀⠀⠀⠀⠀⣀⣄⡀⠀⠀⠀⠀⢀⣀⣀⣤⣄⣀⡀\n⠀⠀⠀⠀⠀⢸⣿⣿⣷⠀⠀⠀⠀⠛⠛⣿⣿⣿⡛⠿⠷\n⠀⠀⠀⠀⠀⠘⠿⠿⠋⠀⠀⠀⠀⠀⠀⣿⣿⣿⠇\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁\n\n⠀⠀⠀⠀⣿⣷⣄⠀⢶⣶⣷⣶⣶⣤⣀\n⠀⠀⠀⠀⣿⣿⣿⠀⠀⠀⠀⠀⠈⠙⠻⠗\n⠀⠀⠀⣰⣿⣿⣿⠀⠀⠀⠀⢀⣀⣠⣤⣴⣶⡄\n⠀⣠⣾⣿⣿⣿⣥⣶⣶⣿⣿⣿⣿⣿⠿⠿⠛⠃\n⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄\n⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡁\n⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁\n⠀⠀⠛⢿⣿⣿⣿⣿⣿⣿⡿⠟\n⠀⠀⠀⠀⠀⠉⠉⠉",
+};
+
 function asciiart(art, reply){
-	switch(art){
-		case "tableflip":
-			reply("(╯°□°)╯︵ ┻━┻", {delay: 0});
-			break;
-		case "shrug":
-			reply("¯\\_(ツ)_/¯", {delay: 0});
-			break;
-		case "lenny":
-			reply("( ͡° ͜ʖ ͡°)", {delay: 0});
-			break;
-		case "thinking":
-			reply("⠀⠀⠀⠀⠀⢀⣀⣀⣀\n⠀⠀⠀⠰⡿⠿⠛⠛⠻⠿⣷\n⠀⠀⠀⠀⠀⠀⣀⣄⡀⠀⠀⠀⠀⢀⣀⣀⣤⣄⣀⡀\n⠀⠀⠀⠀⠀⢸⣿⣿⣷⠀⠀⠀⠀⠛⠛⣿⣿⣿⡛⠿⠷\n⠀⠀⠀⠀⠀⠘⠿⠿⠋⠀⠀⠀⠀⠀⠀⣿⣿⣿⠇\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁\n\n⠀⠀⠀⠀⣿⣷⣄⠀⢶⣶⣷⣶⣶⣤⣀\n⠀⠀⠀⠀⣿⣿⣿⠀⠀⠀⠀⠀⠈⠙⠻⠗\n⠀⠀⠀⣰⣿⣿⣿⠀⠀⠀⠀⢀⣀⣠⣤⣴⣶⡄\n⠀⣠⣾⣿⣿⣿⣥⣶⣶⣿⣿⣿⣿⣿⠿⠿⠛⠃\n⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄\n⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡁\n⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁\n⠀⠀⠛⢿⣿⣿⣿⣿⣿⣿⡿⠟\n⠀⠀⠀⠀⠀⠉⠉⠉", {delay: 0});
-			break;
-		case "":
-			reply("Please specify some art", {delay: 0});
-			break;
-		default:
-			reply("This is not art", {delay: 0});
-			break;
-	}
+	if(ascii[art])
+		return reply(ascii[art]);
+	var keys = Object.keys(ascii);
+	if(art === "")
+		return reply("Specify one of: " + keys.join(", "));
+	art = keys[Math.floor(Math.random() * keys.length)];
+	reply("I don't know what that is, but here's " + art + ":", {}, function(){
+		reply(ascii[art]);
+	});
 }
